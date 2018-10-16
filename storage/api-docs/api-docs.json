@@ -162,7 +162,12 @@
                     "200": {
                         "description": "Successful Operation"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/upFavourite": {
@@ -202,7 +207,12 @@
                     "200": {
                         "description": "Successful Operation"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         }
     },

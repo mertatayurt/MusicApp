@@ -6,10 +6,9 @@ Route::group(['prefix' => '/v1/auth', 'namespace' => 'Api\Auth', 'as' => 'api'],
     Route::post('refresh','AuthController@refresh');
 });
 
-Route::group(['prefix' => '/v1', 'namespace' => 'Api', 'as' => 'api.'], function () {
+Route::group(['prefix' => '/v1','middleware' => ['auth:api'], 'namespace' => 'Api', 'as' => 'api.'], function () {
     Route::get('/getCategories', 'CategoryController@getCategories');
     Route::post('/getSongsByCategory', 'SongController@getSongsByCategory');
     Route::post('/upFavourite', 'SongController@upFavourite');
-    Route::get('/hop', 'SongController@hop');
 });
 

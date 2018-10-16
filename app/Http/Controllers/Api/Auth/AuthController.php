@@ -78,7 +78,7 @@ class AuthController extends Controller
      */
     public function register (Request $request){
         $this->validate($request, [
-            'email'              => 'required|email|unique:users,email',
+            'email'              => 'required',
             'password'           => 'required|min:6'
         ]);
         $user = User::create([
@@ -151,13 +151,13 @@ class AuthController extends Controller
      */
     public function login (Request $request){
         $this->validate($request, [
-            'email'             => 'required|email_address',
+            'email'             => 'required',
             'password'          => 'required',
             'appVersion'        => 'required',
             'langFileVersion'   => 'required'
         ]);
 
-        if($this->request->appVersion != self::appVersion || $this->request->langFileVersion != self::langFileVersion)
+        if($request->appVersion != self::appVersion || $request->langFileVersion != self::langFileVersion)
         {
             $data = ['status' => 'VersionFail', 'message' => 'Please update application !'];
             return response()->json($data,203);

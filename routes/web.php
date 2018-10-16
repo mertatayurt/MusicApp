@@ -11,6 +11,12 @@
 |
 */
 
+$this->get('login', 'Auth\LoginController@showLoginForm')->name('login');
+$this->post('login', 'Auth\LoginController@login')->name('auth.login');
+$this->post('logout', 'Auth\LoginController@logout')->name('auth.logout');
+
+
 Route::get('/', function () {
     return redirect('api/documentation');
 });
+

@@ -2,20 +2,15 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Helpers\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Model\FavouriteSong;
-use App\Model\Song;
-use DB;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class SongController extends Controller
 {
-
-    public function hop()
-    {
-        return response()->json(['x' => 'sad'],200);
-    }
-
     /**
      * @SWG\Post(
      *     path="/getSongsByCategory",
@@ -39,7 +34,10 @@ class SongController extends Controller
      * @SWG\Response(
      *     response=200,
      *     description="Successful Operation",
-     * )
+     * ),
+     *   security={{
+     *     "Bearer":{}
+     *   }}
      * )
      */
     public function getSongsByCategory(Request $request)
@@ -50,6 +48,7 @@ class SongController extends Controller
 
         //Returns a list of songs, joins 'favouritesong' table by authenticated user
         $userId = Auth::id();
+
         $data = DB::table('song as t1')
             ->select('t1.id','t1.song_name','t1.artist',DB::raw('IF(t2.song_id is null,0,1) as is_favourite'))
             ->leftJoin('favourite_song as t2',function($join)use($userId) {
@@ -92,7 +91,10 @@ class SongController extends Controller
      * @SWG\Response(
      *     response=200,
      *     description="Successful Operation",
-     * )
+     * ),
+     *   security={{
+     *     "Bearer":{}
+     *   }}
      * )
      */
     public function upFavourite(Request $request)
@@ -108,16 +110,23 @@ class SongController extends Controller
             FavouriteSong::where('song_id',$request->song_id)
                 ->where('user_id',Auth::id())
                 ->delete();
+            return response()->json(JsonResponse::response('success','User Favourite Deleted'),200);
         }
         else
         {
+            $count = FavouriteSong::where('song_id',$request->song_id)->where('user_id',Auth::id())->count();
+            if ($count > 0)
+                return response()->json(JsonResponse::response('Fail','Already exist.'));
+
             $favSong = new FavouriteSong();
 
             $favSong->song_id = $request->song_id;
             $favSong->user_id = Auth::id();
 
             $favSong->save();
+
+            return response()->json(JsonResponse::response('success','User Favourite Inserted'),200);
         }
-        return response('',200);
+
     }
 }
