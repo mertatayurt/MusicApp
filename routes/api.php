@@ -12,4 +12,6 @@ Route::group(['prefix' => '/v1', 'namespace' => 'Api', 'as' => 'api.'], function
     Route::get('/getCategories', 'CategoryController@getCategories');
     Route::post('/getSongsByCategory', 'SongController@getSongsByCategory');
     Route::post('/upFavourite', 'SongController@upFavourite');
+    Route::get('/hop', 'SongController@hop');
 });
+
