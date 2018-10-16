@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 Route::group(['prefix' => '/v1/auth', 'namespace' => 'Api\Auth', 'as' => 'api'], function () {
     Route::post('register','AuthController@register');
     Route::post('login','AuthController@login');
