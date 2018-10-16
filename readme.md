@@ -1,11 +1,11 @@
 
 ## About Music App
 
-MusicApp is an "WebApi" application which categorize songs
+MusicApp is an "WebApi" application which categorizes songs
 
--List Music Categories
--List Songs By Categories
--Add songs to your favorites
+* List Music Categories
+* List Songs By Categories
+* Add songs to your favorites
 
 ## Technologies
 
