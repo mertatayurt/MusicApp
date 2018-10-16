@@ -11,6 +11,15 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $cat_image
  * @property integer $cat_description
  */
+
+/**
+ *  @SWG\Definition(definition="Category", type="object",
+ *      @SWG\Property(property="cat_name",type="string"),
+ *      @SWG\Property(property="cat_image",type="string"),
+ *      @SWG\Property(property="cat_description",type="string")
+ *  )
+ */
+
 class Category extends Model
 {
     protected $table    = 'category';

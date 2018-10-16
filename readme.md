@@ -17,5 +17,5 @@ MusicApp is an "WebApi" application which categorize songs
 First run the project then check index page for more details.
 
 ## Docker
-Docker available to setup this project run command:
+Docker available on this project by run this command:
 docker-compose up 

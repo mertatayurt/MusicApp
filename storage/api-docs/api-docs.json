@@ -1,0 +1,257 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Music App API",
+        "version": "1.0.0"
+    },
+    "basePath": "/api/v1",
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "/auth/register": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Registers user",
+                "description": "",
+                "operationId": "registerUser",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "formData",
+                        "description": "User Email.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "password",
+                        "in": "formData",
+                        "description": "User Password.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "200": {
+                        "description": "Successful Operation"
+                    }
+                }
+            }
+        },
+        "/auth/login": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Logs in user",
+                "description": "",
+                "operationId": "loginUser",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "formData",
+                        "description": "User Email.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "password",
+                        "in": "formData",
+                        "description": "User Password.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "appVersion",
+                        "in": "formData",
+                        "description": "App Version such as 1.0",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "langFileVersion",
+                        "in": "formData",
+                        "description": "Lang File Version such as 1.0",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "200": {
+                        "description": "Successful Operation"
+                    }
+                }
+            }
+        },
+        "/getCategories": {
+            "get": {
+                "tags": [
+                    "api"
+                ],
+                "summary": "List Song Categories",
+                "description": "Expected Response : Json Array",
+                "operationId": "getCategories",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "200": {
+                        "description": "Successful Operation"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/getSongsByCategory": {
+            "post": {
+                "tags": [
+                    "api"
+                ],
+                "summary": "Return songs by given category",
+                "description": "Expected Response : Json Array",
+                "operationId": "getSongsByCategory",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "cat_id",
+                        "in": "formData",
+                        "description": "Song Category Id",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "200": {
+                        "description": "Successful Operation"
+                    }
+                }
+            }
+        },
+        "/upFavourite": {
+            "post": {
+                "tags": [
+                    "api"
+                ],
+                "summary": "Updates given status by authorized user",
+                "description": "Expected Response : Json Status",
+                "operationId": "upFavourite",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "song_id",
+                        "in": "formData",
+                        "description": "Song Id",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "status",
+                        "in": "formData",
+                        "description": "1 stands for add to favourites, 0 for delete.",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "200": {
+                        "description": "Successful Operation"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Category": {
+            "properties": {
+                "cat_name": {
+                    "type": "string"
+                },
+                "cat_image": {
+                    "type": "string"
+                },
+                "cat_description": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "FavouriteSong": {
+            "properties": {
+                "song_id": {
+                    "type": "integer"
+                },
+                "user_id": {
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
+        "Song": {
+            "properties": {
+                "song_name": {
+                    "type": "string"
+                },
+                "artist": {
+                    "type": "string"
+                },
+                "cat_id": {
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "securityDefinitions": {
+        "Bearer": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    }
+}

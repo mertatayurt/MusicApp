@@ -11,6 +11,16 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $artist
  * @property integer $cat_id
  */
+
+/**
+ *  @SWG\Definition(definition="Song", type="object",
+ *      @SWG\Property(property="song_name",type="string"),
+ *      @SWG\Property(property="artist",type="string"),
+ *      @SWG\Property(property="cat_id",type="integer")
+ *  )
+ */
+
+
 class Song extends Model
 {
     public $table    = 'song';
